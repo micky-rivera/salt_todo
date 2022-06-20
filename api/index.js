@@ -2,8 +2,21 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const fetch = require('node-fetch');
+const http = require('http');
 const app = express();
+const server = http.createServer(app);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
 app.use(cors());
+
+io.on('connection', socket => {
+    console.log('connected', socket.id);
+    socket.emit('connected');
+})
 
 app.get('/', async (req, res) => {
   const root = path.join(__dirname, '..', 'client', 'build')
@@ -12,5 +25,4 @@ app.get('/', async (req, res) => {
 })
 
 module.exports.app = app;
-module.exports.addDetails = addDetails;
 app.listen(process.env.PORT || 8080);
