@@ -1,11 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
+import TodoList from '../TodoList/TodoList';
 import './App.scss';
+import {Routes, Route} from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <p>hello world</p>
+      <Routes>
+        <Route path='/' element={<p>hello world</p>} />
+        <Route path=':listId' element={<TodoList />} />
+      </Routes>
     </div>
   );
 }
