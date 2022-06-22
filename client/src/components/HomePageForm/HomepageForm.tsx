@@ -28,9 +28,9 @@ function HomepageForm({setTodoLists}: HomepageFormProps) {
         .then(res => res.json())
         .then(data => {
             setTodoLists(previousState => {
+                window.localStorage.setItem('todoLists', JSON.stringify([...previousState, data]));
                 return [...previousState, data];
             })
-            // add to localstorage
         });
 
         setTitleInput('');
