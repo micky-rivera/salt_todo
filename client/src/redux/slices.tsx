@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: AppState = {
-    todoList: [],
+    todoList: {
+        id: '',
+        title: '',
+        content: []
+    },
 }
 
 export const appSlice = createSlice({
@@ -15,7 +19,11 @@ export const appSlice = createSlice({
     },
     addTodo: (state, action) => {
       return {
-        todoList: [...state.todoList, action.payload]
+        todoList: {
+            id: state.todoList.id,
+            title: state.todoList.title,
+            content: [...state.todoList.content, action.payload]
+        }
       };
     },
   },

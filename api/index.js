@@ -23,17 +23,12 @@ io.on('connection', socket => {
 })
 
 app.get('/api/todolist/:id', async (req,res) => {
-    try {
-        const id = req.params.id;
-        const data = await db.getTodoList(id);
-        if (data) {
-            return res.status(200).json(data);
-        } else {
-            return res.status(404).json({message: 'not found'});
-        }
-    } catch(e) {
-        return res.status(404).json({message: 'not found'});
+    const id = req.params.id;
+    const data = await db.getTodoList(id);
+    if (data) {
+        return res.status(200).json(data);
     }
+    return res.status(404).json({message: 'not found'});
 })
 app.post('/api/todolist', async (req,res) => {
     const newTodoList = req.body;
@@ -43,8 +38,7 @@ app.post('/api/todolist', async (req,res) => {
 app.put('/api/todolist', async (req,res) => {
     const todoList = req.body;
     const updatedList = await db.updateTodoList(todoList);
-    //update existing list in mongo
-    return res.status(204).json(updatedList);
+    return res.status(200).json(updatedList);
 })
 
 app.get('/', async (req, res) => {

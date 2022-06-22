@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import './TodoForm.scss';
 import { addTodo } from '../../redux/slices';
 
@@ -9,6 +9,7 @@ function TodoForm() {
     const [titleInput, setTitleInput] = useState('');
     const [descInput, setDescInput] = useState('');
     const dispatch = useAppDispatch();
+    const todoList = useAppSelector(state => state.app).todoList;
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -19,23 +20,6 @@ function TodoForm() {
         }
 
         dispatch(addTodo(newTodo));
-
-        // send new todo to BE who adds it to mongo
-        fetch(`${url}/api/todolist`, {
-            method: 'PUT',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id: 'not yet',
-                todoItem: newTodo
-            })
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-        });
         
         // socket emit the change
 

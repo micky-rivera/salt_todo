@@ -33,5 +33,22 @@ const addTodoList = async (newTodoList) => {
   return newTodoList;
 };
 
+const updateTodoList = async (newTodoList) => {
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  await client.connect();
+  const database = client.db("TodoDb");
+  const collection = database.collection("todoLists");
+
+  const query = {id: newTodoList.id};
+  await collection.updateOne(query, {$set:{content: newTodoList.content}});
+  await client.close();
+  return newTodoList;
+};
+
 module.exports.getTodoList = getTodoList;
 module.exports.addTodoList = addTodoList;
+module.exports.updateTodoList = updateTodoList;

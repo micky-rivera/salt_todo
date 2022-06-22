@@ -18,6 +18,10 @@ declare global {
         todo: TodoItem
     }
     type AppState = {
-        todoList: TodoItem[]
+        todoList: {
+            id: string,
+            title: string,
+            content: TodoItem[]
+        }
     }
 }
