@@ -14,14 +14,15 @@ function TodoForm() {
         e.preventDefault();
         const newTodo = {
             title: titleInput,
-            desc: descInput
+            desc: descInput,
+            completed: false
         }
 
         dispatch(addTodo(newTodo));
 
         // send new todo to BE who adds it to mongo
         fetch(`${url}/api/todolist`, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'

@@ -1,4 +1,6 @@
 const express = require('express');
+require("dotenv").config();
+const db = require('./db');
 const path = require('path');
 const cors = require('cors');
 const fetch = require('node-fetch');
@@ -20,11 +22,29 @@ io.on('connection', socket => {
     socket.emit('connected');
 })
 
-app.post('/api/todolist', (req,res) => {
-    const todoId = req.body.id;
-    const todoItem = req.body.todoItem;
-    //send to mongo
-    return res.status(201).json(todoItem);
+app.get('/api/todolist/:id', async (req,res) => {
+    try {
+        const id = req.params.id;
+        const data = await db.getTodoList(id);
+        if (data) {
+            return res.status(200).json(data);
+        } else {
+            return res.status(404).json({message: 'not found'});
+        }
+    } catch(e) {
+        return res.status(404).json({message: 'not found'});
+    }
+})
+app.post('/api/todolist', async (req,res) => {
+    const newTodoList = req.body;
+    const addedTodoList = await db.addTodoList(newTodoList);
+    return res.status(201).json(addedTodoList);
+})
+app.put('/api/todolist', async (req,res) => {
+    const todoList = req.body;
+    const updatedList = await db.updateTodoList(todoList);
+    //update existing list in mongo
+    return res.status(204).json(updatedList);
 })
 
 app.get('/', async (req, res) => {
