@@ -20,7 +20,7 @@ function TodoForm() {
         }
 
         dispatch(addTodo(newTodo));
-        
+
         // socket emit the change
 
         setTitleInput('');
@@ -29,12 +29,16 @@ function TodoForm() {
 
   return (
     <form className="todoform" onSubmit={handleSubmit}>
-        <input required className="todoform__input--title" type="text" placeholder="Title" value={titleInput} onChange={e => {
-            setTitleInput(e.target.value);
-        }}  />
-        <input required className="todoform__input--desc" type="text" placeholder="Description" value={descInput} onChange={e => {
-            setDescInput(e.target.value);
-        }}  />
+        <div className="todoform__title">
+            <input required type="text" placeholder="Title" value={titleInput} onChange={e => {
+                setTitleInput(e.target.value);
+            }}  />
+        </div>
+        <div className="todoform__desc">
+            <textarea placeholder="Description" value={descInput} onChange={e => {
+                setDescInput(e.target.value);
+            }}  />
+        </div>
         <button className="todoform__button">Create</button>
     </form>
   );

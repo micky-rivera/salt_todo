@@ -1,3 +1,5 @@
+@import "./colors";
+
 * {
   margin: 0px;
   padding: 0px;
@@ -5,7 +7,12 @@
   box-sizing: border-box;
 }
 
+.hidden {
+  display: none;
+}
+
 body {
+  background-color: $background-color;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;

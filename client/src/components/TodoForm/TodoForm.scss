@@ -1,0 +1,48 @@
+@import "../../colors.scss";
+
+.todoform {
+    background-color: $dark;
+    max-width: 30rem;
+    margin: auto;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-top: 2.5rem;
+    &__title {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        input {
+            display: block;
+            width: 10rem;
+            margin: auto;
+            background-color: $background-color;
+            color: $text;
+            padding: 0.2rem;
+            border-radius: 5px;
+        }
+    }
+    &__desc {
+        width: 100%;
+        textarea {
+            resize: none;
+            display: block;
+            width: 15rem;
+            height: 8rem;
+            margin: auto;
+            background-color: $background-color;
+            color: $text;
+            padding: 0.2rem;
+            border-radius: 5px;
+        }
+    }
+    &__button {
+        cursor: pointer;
+        display: block;
+        width: 5rem;
+        height: 2rem;
+        margin: auto;
+        margin-top: 1rem;
+        border-radius: 5px;
+        background-color: $medium;
+        color: $text;
+    }
+}

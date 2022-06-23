@@ -37,19 +37,20 @@ function TodoList() {
             },
             body: JSON.stringify(todoList)
         })
-        /* .then(res => res.json())
-        .then(data => {
-            console.log(data);
-        }); */
     }, [todoList]);
 
 
   return (
     <div className="todolist">
-        <TodoForm />
-        {todoList.content.map((todoItem, index) => (
-            <TodoItem key={index} todo={todoItem} />
-        ))}
+        <p className="todolist__title">{todoList.title}</p>
+        <div className="todolist__form">
+            <TodoForm />
+        </div>
+        <div className="todolist__container">
+            {todoList.content.map((todoItem, index) => (
+                <TodoItem key={index} todo={todoItem} />
+            ))}
+        </div>
     </div>
   );
 }
