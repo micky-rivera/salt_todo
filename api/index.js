@@ -19,7 +19,13 @@ app.use(express.json());
 
 io.on('connection', socket => {
     console.log('connected', socket.id);
-    socket.emit('connected');
+    io.to(socket.id).emit('handshake');
+    socket.on('add-to-room', (id)=>{
+        socket.join(id);
+        socket.on('update-list',()=>{
+            socket.to(id).emit('update-list');
+        })
+    })
 })
 
 app.delete('/api/todolist', async (req, res)=> {
@@ -57,4 +63,4 @@ app.get('/', async (req, res) => {
 })
 
 module.exports.app = app;
-app.listen(process.env.PORT || 8080);
+server.listen(process.env.PORT || 8080);
