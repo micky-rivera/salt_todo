@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { io } from "socket.io-client";
 import './TodoList.scss';
 import TodoForm from '../TodoForm/TodoForm';
 import { useAppSelector } from '../../redux/hooks';
@@ -14,6 +15,7 @@ function TodoList() {
     const [filter, setFilter] = useState('default');
     const [listToRender, setListToRender] = useState<typeof TodoItem[]>([]);
     const [loading, setLoading] = useState(true);
+    const [socket, setSocket] = useState<any>({});
     const state = useAppSelector(state => state.app);
     const todoList = state.todoList;
     const todoId = useLocation().pathname.substring(1);
@@ -21,6 +23,7 @@ function TodoList() {
     const navigate = useNavigate();
 
     useEffect(()=> {
+        setSocket(io(url));
         fetch(`${url}/api/todolist/${todoId}`)
         .then(res => res.json())
         .then(data => {
@@ -57,12 +60,30 @@ function TodoList() {
         }
     }, [filter, todoList])
 
+    useEffect(()=>{
+        if (socket.id) {
+            socket.on('handshake', ()=>{
+                socket.emit('add-to-room', todoId);
+            })
+            socket.on('update-list', ()=>{
+                fetch(`${url}/api/todolist`, {
+                    method: 'PUT',
+                    headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(todoList)
+                })
+            })
+        }
+    }, [socket])
+
 
   return (
     <div className="todolist">
         <p className="todolist__title">{loading ? 'Loading...' : todoList.title}</p>
         <div className={loading ? 'hidden' : "todolist__form"}>
-            <TodoForm />
+            <TodoForm socket={socket} />
         </div>
         <div className={loading ? 'hidden' : "todolist__filter"}>
             <p className="todolist__filtertitle">Filter by:</p>
@@ -81,7 +102,7 @@ function TodoList() {
         </div>
         <div className={loading ? 'hidden' : "todolist__container"}>
             {listToRender.map((todoItem, index) => (
-                <TodoItem key={index} todo={todoItem} />
+                <TodoItem key={index} todo={todoItem} socket={socket} />
             ))}
         </div>
     </div>

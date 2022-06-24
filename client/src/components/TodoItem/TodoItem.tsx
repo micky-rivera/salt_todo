@@ -3,7 +3,7 @@ import './TodoItem.scss';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setList } from '../../redux/slices';
 
-function TodoItem({todo}: TodoItemProps) {
+function TodoItem({todo, socket}: TodoItemProps) {
     const dispatch = useAppDispatch();
     const todoList = useAppSelector(state => state.app).todoList;
     let deleting = false;
@@ -31,7 +31,7 @@ function TodoItem({todo}: TodoItemProps) {
 
             dispatch(setList(newList));
     
-            // socket emit the changed list
+            socket.emit('update-list');
 
         }
     }
@@ -46,6 +46,8 @@ function TodoItem({todo}: TodoItemProps) {
         }
         
         dispatch(setList(newList));
+        socket.emit('update-list');
+
     }
 
   return (

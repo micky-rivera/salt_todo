@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import './TodoForm.scss';
 import { addTodo } from '../../redux/slices';
+import { Socket } from 'net';
 
 const url = process.env.NODE_ENV === "development" ? "http://localhost:8080" : "";
 
-function TodoForm() {
+function TodoForm({socket}: TodoFormProps) {
     const [titleInput, setTitleInput] = useState('');
     const [descInput, setDescInput] = useState('');
     const dispatch = useAppDispatch();
@@ -21,7 +22,7 @@ function TodoForm() {
 
         dispatch(addTodo(newTodo));
 
-        // socket emit the change
+        socket.emit('update-list');
 
         setTitleInput('');
         setDescInput('');
