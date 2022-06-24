@@ -22,6 +22,15 @@ io.on('connection', socket => {
     socket.emit('connected');
 })
 
+app.delete('/api/todolist', async (req, res)=> {
+    const id = req.body.id;
+    const returnId = await db.deleteTodoList(id);
+    if (returnId) {
+        return res.end;
+    }
+    return res.status(404).end;
+})
+
 app.get('/api/todolist/:id', async (req,res) => {
     const id = req.params.id;
     const data = await db.getTodoList(id);

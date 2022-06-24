@@ -9,6 +9,11 @@ declare global {
         title: string
     }
     interface TodoListCardProps {
+        setTodoLists: React.Dispatch<React.SetStateAction<HomepageTodoList[]>>,
+        todoLists: {
+            id: string,
+            title: string
+        }[],
         todoList: {
             id: string,
             title: string

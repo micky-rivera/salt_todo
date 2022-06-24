@@ -15,11 +15,11 @@ function Homepage() {
 
   return (
     <div className="homepage">
-        <p>This is the homepage</p>
+        <p className="homepage__title">Micky's todo app</p>
         <HomepageForm setTodoLists={setTodoLists} />
         <div className='homepage__todolistdisplay'>
             {todoLists.map((todoList, index) => (
-                <TodoListCard key={index} todoList={todoList} />
+                <TodoListCard key={index} todoList={todoList} todoLists={todoLists} setTodoLists={setTodoLists} />
             ))}
         </div>
     </div>

@@ -38,10 +38,12 @@ function HomepageForm({setTodoLists}: HomepageFormProps) {
 
   return (
     <form className="homepageform" onSubmit={handleSubmit}>
-        <input required className="homepageform__input--title" type="text" placeholder="Todo List Title" value={titleInput} onChange={e => {
-            setTitleInput(e.target.value);
-        }}  />
-        <button className="homeoageform__button">Create New List</button>
+        <div className="homepageform__title">
+            <input required type="text" placeholder="Todo List Title" value={titleInput} onChange={e => {
+                setTitleInput(e.target.value);
+            }}  />
+        </div>
+        <button className="homepageform__button">Create New List</button>
     </form>
   );
 }

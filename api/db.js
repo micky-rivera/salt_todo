@@ -32,6 +32,21 @@ const addTodoList = async (newTodoList) => {
   await client.close();
   return newTodoList;
 };
+const deleteTodoList = async (id) => {
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  await client.connect();
+  const database = client.db("TodoDb");
+  const collection = database.collection("todoLists");
+
+  const query = {id: id};
+  await collection.deleteOne(query);
+  await client.close();
+  return id;
+};
 
 const updateTodoList = async (newTodoList) => {
   const client = new MongoClient(uri, {
@@ -52,3 +67,4 @@ const updateTodoList = async (newTodoList) => {
 module.exports.getTodoList = getTodoList;
 module.exports.addTodoList = addTodoList;
 module.exports.updateTodoList = updateTodoList;
+module.exports.deleteTodoList = deleteTodoList;

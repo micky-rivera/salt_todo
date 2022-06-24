@@ -7,7 +7,6 @@
     padding: 1.5rem;
     margin: 1rem;
     position: relative;
-    z-index: 1;
     &--completed {
         cursor: pointer;
         background-color: $medium;
@@ -34,7 +33,6 @@
         right: 1rem;
         top: 1rem;
         border-radius: 50%;
-        z-index: 2;
     }
     &__deleteicon {
         color: $text;

@@ -1,0 +1,13 @@
+@import "../../colors.scss";
+
+.homepage {
+    &__title {
+        font-size: 3rem;
+        text-align: center;
+        color: $text;
+    }
+    &__todolistdisplay {
+        width: 40rem;
+        margin: auto;
+    }
+}
