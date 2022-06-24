@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import './TodoListCard.scss';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../redux/hooks';
+import { setList } from '../../redux/slices';
 
 const url = process.env.NODE_ENV === "development" ? "http://localhost:8080" : "";
 
 function TodoListCard({todoList, todoLists, setTodoLists}: TodoListCardProps) {
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     let deleting = false;
     const handleClick = () => {

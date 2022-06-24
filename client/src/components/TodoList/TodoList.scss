@@ -11,4 +11,24 @@
         margin: auto;
         margin-top: 2rem;
     }
+    &__filter {
+        width: 20rem;
+        margin: auto;
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+    }
+    &__filtertitle {
+        color: $text;
+    }
+    &__filterinput {
+        display: flex;
+        p {
+            color: $text;
+            margin-left: 0.2rem;
+        }
+        input {
+            margin-top: 0.4rem;
+        }
+    }
 }
